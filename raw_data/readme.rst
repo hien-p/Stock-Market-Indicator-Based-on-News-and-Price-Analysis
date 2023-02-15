@@ -1,15 +1,14 @@
 Function Descriptions
 =============
 
-``get_ticker_overview(symbol: str)`` -> pandas.DataFrame
+``get_ticker_overview(symbol: str) -> pandas.DataFrame``
 
 This function returns an overview of the given stock symbol.
 
-Args:
+* Args:
+  * symbol (str): 3 digits name of the desired stock.
 
-symbol (str): 3 digits name of the desired stock.
-Returns:
-
-pandas.DataFrame: A DataFrame containing the stock overview data.
-Raises:
+* Returns:
+  * pandas.DataFrame: A DataFrame containing the stock overview data.
+  * Raises:
 
