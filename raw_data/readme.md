@@ -76,3 +76,25 @@ page_size = 5000
 intraday_data = stock_intraday_data(symbol, page_num, page_size)
 ```
 
+## generate_weeks_data()
+Description:
+This function takes a stock symbol, start date, and end date as input and returns two data frames containing weekly and yearly summary data of the stock. The weekly data frame includes the open, high, low, close, and volume of the stock for each week between the start and end dates. The yearly data frame includes the same values, but summarized for each year between the start and end dates.
+
+* Syntax:
+    * generate_weeks_data(symbol, start_date, end_date)
+
+* Input Parameters:
+    * symbol (str): A string that represents the stock symbol. It should be a three-digit name of the desired stock.
+    * start_date (str): A string that represents the start date to get data. It should be in the format "YYYY-mm-dd".
+    * end_date (str): A string that represents the end date to get data. It should be in the format "YYYY-mm-dd".
+* Output
+    * weekly_data (DataFrame): A data frame that contains weekly summary data of the stock for the given symbol and within the specified date range.
+    * yearly_data (DataFrame): A data frame that contains yearly summary data of the stock for the given symbol and within the specified date range.
+```
+Weekly data: Open        High         Low       Close      Volume
+TradingDate                                                            
+2021-01-04   133.5200  133.610001  126.760002  129.410004  2606169000
+2021-01-11   128.899994  132.630005  127.860001  132.050003  2142620100
+2021-01-18   128.779999  139.070007  128.500000  139.070007  2283089600
+```
+
