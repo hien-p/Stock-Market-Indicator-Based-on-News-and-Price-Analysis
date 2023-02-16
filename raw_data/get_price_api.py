@@ -146,6 +146,43 @@ def get_latest_indices(headers=headers):
     return result
 
 
+def generate_weeks_data(symbol, start_date, end_date):
+    """
+    This function returns a weekly summary of the stock data for the given symbol, within the specified date range.
+    
+    Args:
+        symbol (str): 3 digits name of the desired stock.
+        start_date (str): the start date to get data (YYYY-mm-dd).
+        end_date (str): the end date to get data (YYYY-mm-dd).
+    
+    Returns:
+        tuple: Two DataFrames containing the weekly and yearly stock data for the given symbol.
+    """
+    # Get daily data for the full date range
+    daily_data = get_stock_historical_data(symbol, start_date, end_date)
+
+    # Create a DataFrame with weekly summary data
+    weekly_data = pd.DataFrame({
+        'Open': daily_data.groupby(pd.Grouper(key='TradingDate', freq='W-MON'))['Open'].first(),
+        'High': daily_data.groupby(pd.Grouper(key='TradingDate', freq='W-MON'))['High'].max(),
+        'Low': daily_data.groupby(pd.Grouper(key='TradingDate', freq='W-MON'))['Low'].min(),
+        'Close': daily_data.groupby(pd.Grouper(key='TradingDate', freq='W-MON'))['Close'].last(),
+        'Volume': daily_data.groupby(pd.Grouper(key='TradingDate', freq='W-MON'))['Volume'].sum()
+    })
+    
+    # Create a DataFrame with yearly summary data
+    yearly_data = pd.DataFrame({
+        'Open': daily_data.groupby(pd.Grouper(key='TradingDate', freq='Y'))['Open'].first(),
+        'High': daily_data.groupby(pd.Grouper(key='TradingDate', freq='Y'))['High'].max(),
+        'Low': daily_data.groupby(pd.Grouper(key='TradingDate', freq='Y'))['Low'].min(),
+        'Close': daily_data.groupby(pd.Grouper(key='TradingDate', freq='Y'))['Close'].last(),
+        'Volume': daily_data.groupby(pd.Grouper(key='TradingDate', freq='Y'))['Volume'].sum()
+    })
+
+    return weekly_data, yearly_data
+
+
+
 
 
 class TestFunctions(unittest.TestCase):
@@ -166,5 +203,34 @@ class TestFunctions(unittest.TestCase):
         result = get_latest_indices()
         self.assertIsNotNone(result)
         
+    def test_generate_weeks_data(self):
+        start_date = '2022-01-01'
+        end_date = '2022-01-31'
+        symbol = 'VCB'
+
+        # generate the weekly and yearly data
+        weekly_data, yearly_data = generate_weeks_data(symbol, start_date, end_date)
+
+        # check if weekly data is not None and is a pandas DataFrame
+        self.assertIsNotNone(weekly_data)
+        self.assertIsInstance(weekly_data, pd.DataFrame)
+
+        # check if yearly data is not None and is a pandas DataFrame
+        self.assertIsNotNone(yearly_data)
+        self.assertIsInstance(yearly_data, pd.DataFrame)
+
+        # check if weekly data has 5 columns
+        self.assertEqual(len(weekly_data.columns), 5)
+
+        # check if yearly data has 5 columns
+        self.assertEqual(len(yearly_data.columns), 5)
+
+        # check if weekly data is grouped by week
+        weekly_groups = weekly_data.groupby(pd.Grouper(freq='W-MON')).size()
+        self.assertGreater(len(weekly_groups), 0)
+
+        # check if yearly data is grouped by year
+        yearly_groups = yearly_data.groupby(pd.Grouper(freq='Y')).size()
+        self.assertGreater(len(yearly_groups), 0)
 
 unittest.main()
