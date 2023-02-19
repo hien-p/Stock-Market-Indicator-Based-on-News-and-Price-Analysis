@@ -18,10 +18,11 @@ def get_daily_articles(stock_list):
   
     for stock_name in stock_list:
         parameters = {
-            'q': f'vietnam {stock_name}',
-            'sort_by': 'relevancy',
+            'q': f'VN-{stock_name}',
+            'sortBy': 'relevancy',
             'apiKey': api_key
         }
+
   
         response = requests.get(url, params=parameters)
   
@@ -40,7 +41,7 @@ def get_daily_articles(stock_list):
   
         with open('daily_articles.csv', 'a', newline='') as file:
             writer = csv.DictWriter(file, fieldnames=['date', 'title', 'description','stock_group'])
-        d       for day in daily_articles_list:
+            for day in daily_articles_list:
                 date = day['date']
                 for article in day['articles']:
                     writer.writerow({
