@@ -18,6 +18,7 @@ def get_daily_articles(stock_list):
   
     for stock_name in stock_list:
         parameters = {
+            
             'q': f'VN-{stock_name}',
             'sortBy': 'relevancy',
             'apiKey': api_key
