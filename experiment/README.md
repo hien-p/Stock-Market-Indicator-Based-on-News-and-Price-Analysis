@@ -10,11 +10,11 @@
 	<li>article news/title</li>
 </ul>
 
-<p>Idea: We can train a neural net to predict prices, however, they are sometime not close to the original. So the idea is to add the news factor to adjust them so that they are closer to their original prices.</p>
+<p><i>Idea:</i> We can train a neural net to predict prices, however, they are sometime not close to the original. So the idea is to add the news factor to adjust them so that they are closer to their original prices.</p>
 
-<p>Target: To predict better at longer ranges. e.g. a week, two weeks,...</p>
+<p><i>Target:</i> To predict better at longer ranges. e.g. a week, two weeks,...</p>
 
-<p>Reason: LSTM model submitted in ML final didn't preform well on week prediction</p>
+<p><i>Reason:</i> LSTM model submitted in ML final didn't preform well on week prediction</p>
 
 <p style='color:green;'>Steps:</p>
 <div>
