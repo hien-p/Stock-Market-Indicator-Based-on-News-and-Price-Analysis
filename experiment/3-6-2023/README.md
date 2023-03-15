@@ -7,7 +7,7 @@
     <li>Parameterized notebook</li>
     <li>Fine tune a BERT model</li>
 </ol>
-<h2>I. Devops task</h2>
+<h2 id='I'>I. Devops task</h2>
 <p>
     I was entrusted with learning devops which is mainly useful when deploying a model. And I'm glad to report that it's going well despite that model deploying haven't been done yet.
 </p>
